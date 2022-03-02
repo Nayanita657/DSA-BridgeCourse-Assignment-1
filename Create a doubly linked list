@@ -1,0 +1,71 @@
+Create a doubly linked list IN C++
+**************************************************************************SOLUTION************************************************************
+#include <iostream>
+
+using namespace std;
+
+struct node{
+    int data;
+    struct node *prev;
+    struct node *next;
+};
+typedef struct node node;
+node *head=NULL;
+
+void createnode()
+{
+    node *temp;
+    temp=(node *)malloc(sizeof(int));
+    if(temp==NULL)
+        exit(0);
+    cout << "\nEnter data:";
+    cin >> temp->data;
+    temp->prev=NULL;
+    temp->next=NULL;
+    if(head==NULL)
+    {
+        head=temp;
+    }
+    else
+    {
+        node *p=head;
+        while(p->next!=NULL)
+        {
+            p=p->next;
+        }
+        p->next=temp;
+        temp->prev=p;
+        p=NULL;
+        temp=NULL;
+    }
+}
+
+void displaynode()
+{
+    cout << "\n Displaying the linked list";
+    cout << "\n-----------------------------\n";
+    node *temp;
+    temp=head;
+    while(temp->next!=NULL)
+    {
+        cout <<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout << temp->data;
+    
+    
+}
+
+int main()
+{
+    int total_count;
+    cout<<"\nEnter the total no of nodes to be inserted:";
+    cin >> total_count;
+    
+    for(int i=0;i<total_count;i++)
+    {
+        createnode();
+    }
+    displaynode();
+    return 0;
+}
