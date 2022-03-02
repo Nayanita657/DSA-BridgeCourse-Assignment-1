@@ -1,0 +1,186 @@
+Create a Deque IN C++
+
+**********************************************************************SOLUTION*********************************************************************
+
+#include <iostream>
+
+using namespace std;
+
+struct Queue *createQueue();
+void Insert_rear(struct Queue *);
+void Insert_front(struct Queue *);
+void delete_front(struct Queue *);
+void delete_rear(struct Queue *);
+void display(struct Queue *);
+
+struct Queue{
+    int rear,front,capacity,size;
+    int *array;
+};
+typedef struct Queue st;
+st *createQueue()
+{
+    st *temp=(struct Queue*)malloc(sizeof(st));
+    temp->capacity=5;
+    temp->front=-1;
+    temp->rear=-1;
+    temp->array=(int *)malloc(temp->capacity * sizeof(int));
+    return temp;
+}
+
+void Insert_rear(st *queue)
+{
+    int data;
+    if(queue->rear==queue->capacity-1)
+          cout<<"\n\n\t queue overflow....";
+    else
+    {
+        if(queue->rear==-1)
+        {
+            queue->rear++;
+            queue->front++;
+        }
+        else
+        {
+            queue->rear++;
+        }
+        cout<<"\n\n\t Enter data item: ";
+        cin>>data;
+        queue->array[queue->rear]=data;
+        queue->size++;
+        display(queue); 
+    }
+}
+
+void Insert_front(st *queue)
+{
+    int data;
+    
+    if(queue->rear==queue->capacity-1)
+        cout<<"\n\n\t queue overflow....";
+    else 
+    {
+        if(queue->size==0)
+        {
+            cout<<"\n\n\t Enter data item: ";
+            cin>>data;
+            queue->rear++;
+            queue->front++;
+            queue->array[queue->rear]=data;
+            queue->size++;
+            display(queue);
+        }
+        else
+        {
+            cout<<"\n\n\t Enter data item: ";
+            cin>>data;
+            queue->rear++;
+            for(int i=queue->size-1;i>=0;i--)
+            {
+                queue->array[i+1]=queue->array[i];
+            }    
+            queue->array[0]=data;
+
+            queue->size++;
+            display(queue); 
+        }    
+    }
+    
+}
+
+
+void delete_front(st *queue)
+{
+    if(queue->rear==-1)
+    {
+         cout<<"\n\n\t queue underflow.....";
+    }
+       
+    else
+    {
+        int item;
+        item=queue->array[queue->front];
+        
+            for(int i=0;i<queue->size-1;i++)
+            {
+                queue->array[i]=queue->array[i+1];
+            }
+        queue->size--;
+        queue->rear--;
+        if(queue->rear==-1)
+        {
+            queue->front=-1;
+        }
+       cout<<"\n\n\t successfully deleted element- "<<item;
+        display(queue);
+        
+    }
+}
+
+
+void delete_rear(st *queue)
+{
+    if(queue->rear==-1)
+        cout<<"\n\n\t queue underflow.....";
+    else
+    {
+        cout<<"\n\n\t successfully deleted element- "<<queue->array[queue->rear];
+        queue->size--;
+        queue->rear--;
+        display(queue);
+    }
+    
+}
+
+
+void display(st *queue)
+{
+    if(queue->front==-1)
+        cout<<"\n\n\t queue is empty";
+    else
+    {
+        cout<<"\n\n\t queue emelents are";
+        cout<<"\n\n\t -------------------";
+        for(int i=queue->front;i<=queue->rear;i++)
+        {
+            cout<<queue->array[i];
+            
+        }
+    }
+}
+
+int main()
+{
+    int choice;
+    st *queue=createQueue();
+    do
+    {
+        
+        cout<<"\n\n\t 1.Insert rear";
+        cout<<"\n\n\t 2.Delete front";
+        cout<<"\n\n\t 3.Display element of queue";
+        cout<<"\n\n\t 4.Exit";
+        cout<<"\n\n\t 5.Insert front";
+        cout<<"\n\n\t 6.delete rear";
+        cout<<"\n\n\t Enter your choice between(1-6):- ";
+        cin>>choice;
+        switch(choice)
+        {
+            case 1:Insert_rear(queue);
+                   break;
+            case 2:delete_front(queue);
+                   break;
+            case 3:display(queue); 
+                   break;
+            case 4:exit(0);
+                   break;
+            case 5:Insert_front(queue);
+                   break;
+            case 6:delete_rear(queue);
+                   break;
+            default: cout<<"\n\n\t Invalid choice";
+                   break;
+        }
+    }while(choice!=4);
+    return 0;
+}
