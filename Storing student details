@@ -1,0 +1,173 @@
+Write a well-commented example code for storing student details (also functions for
+performing CRUD) using pointers and structures in C and similarly on classes and
+objects in C++, Java, or Python.
+
+****************************************************************SOLUTION****************************************************************************
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+
+void add_student();
+void find_student();
+void delete_student();
+void update_student();
+void display_student();
+
+struct student{
+	char Name[50];
+	int roll;
+	float cgpa;
+}s[60];
+
+int total_count=0;
+
+
+void add_student()
+{
+	printf("\nAdd the student details:");
+	printf("\n----------------------------");
+	printf("\nEnter Name:");
+	scanf("%s",s[total_count].Name);
+	s[total_count].roll=total_count+1;
+	printf("\nEnter cgpa:");
+	scanf("%f",&s[total_count].cgpa);
+	total_count=total_count+1;
+	
+}
+
+void display_student()
+{
+    printf("\nDisplaying student details:");
+    printf("\n----------------------------");
+	for (int j = 0; j < total_count; ++j) 
+	{
+        printf("\nName of student: ");
+        puts(s[j].Name);
+        printf("\nRoll number: %d", s[j].roll);
+        printf("\ncgpa is:%0.2f",s[j].cgpa);
+        printf("\n");
+    }
+}
+
+void find_student()
+{
+    int key;
+	printf("\nEnter the roll num for search:");
+	scanf("%d",&key);
+	for(int j=0;j<total_count;j++)
+	{
+	    if(s[j].roll==key)
+	    {
+	        printf("\nName of student: ");
+            puts(s[j].Name);
+            printf("\nRoll number: %d", s[j].roll);
+            printf("\ncgpa is:%0.2f",s[j].cgpa);
+            printf("\n");
+	    }
+	    else
+	    {
+	         printf("\nInvalid roll number");
+	    }
+	}
+	
+}
+
+void delete_student()
+{
+    int key;
+	printf("\nEnter the roll num to be deleted:");
+	scanf("%d",&key);
+	for(int j=0;j<total_count;j++)
+	{
+	    if(s[j].roll==key)
+	    {
+	        for(int k=0;k<total_count;k++)
+	            s[k]=s[k+1];
+	    }
+	    else
+	    {
+	         printf("\nInvalid roll number");
+	    }
+	}
+	total_count=total_count-1;
+	printf("\nSuccessfully deleted roll Num %d:",key);
+	printf("\n Updated student list:");
+	printf("\n----------------------");
+	display_student();
+}
+
+void update_student()
+{
+	int key,choice;
+	printf("\nEnter the roll num to be updated:");
+	scanf("%d",&key);
+	for(int j=0;j<total_count;j++)
+	{
+	    if(s[j].roll==key)
+	    {
+	        printf("\nthe detail which you want to update");
+	        printf("\n1.Name");
+	        printf("\n2.Roll");
+    	    printf("\n3.cgpa");
+	        scanf("%d",&choice);
+	        switch(choice)
+	        {
+	            case 1: printf("\nEnter the updated student name:");
+	                    scanf("%s",&s[j].Name);
+	                    break;
+	            case 2: printf("\nEnter the updated roll num:");
+	                    scanf("%d",&s[j].roll);
+	                    break;  
+	            case 3: printf("\nEnter the updated cgpa:  ");
+	                    scanf("%f",&s[j].cgpa);
+	                    break;          
+	        }
+	        printf("\n Displaying the updated student details:");
+	        printf("\n-----------------------------------------");
+	        printf("\nName of student: ");
+            puts(s[j].Name);
+            printf("\nRoll number: %d", s[j].roll);
+            printf("\ncgpa is:%0.2f",s[j].cgpa);
+            printf("\n");
+	    }
+	    else
+	    {
+	        printf("\nInvalid roll number");
+	    }
+	
+	}
+	
+	
+}
+
+void main()
+{
+    int choice,k;
+    while(1)
+    {
+    	printf("The task you want to perform");
+    	printf("\n1. Add the students details");
+    	printf("\n2. Find the student details by roll number");
+    	printf("\n3. Delete the student details");
+    	printf("\n4. Update the students details");
+        printf("\n5. Display student details   ");
+    	printf("\n6. To Exit :  ");
+    	scanf("%d",&choice);
+    	switch(choice)
+    	{
+    		case 1: add_student();
+    				break;
+    		case 2: find_student();
+					break;
+			case 3: delete_student();
+					break;
+			case 4: update_student();
+					break;
+			case 5:display_student();
+                    break;
+			case 6: exit(0);	
+			        break;
+											
+		}
+	}
+}
