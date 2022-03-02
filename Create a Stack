@@ -1,0 +1,81 @@
+Create a Stack IN C++
+
+***************************************************************SOLUTION******************************************************************************
+
+#include <iostream>
+
+using namespace std;
+#define MAX 5
+
+struct stack{
+    int arr[MAX];
+    int top;
+}st;
+
+void push()
+{
+    int data;
+    if(st.top==MAX-1)
+        cout << "\n\n\t stack is overflow....";
+    else
+    {
+        cout << "\n\n\t Enter the data:";
+        cin >> data;
+        st.top++;
+        st.arr[st.top]=data;
+    }
+}
+
+void pop()
+{
+    if(st.top==-1)
+        cout<< "\n\n\t stack is underflow";
+    else
+    {
+        int item;
+        item=st.arr[st.top];
+        st.top--;
+        cout <<"\n\n\t The poped element is"<<item;
+    }
+}
+
+void display()
+{
+    if(st.top==-1)
+        cout<<"\n\n\t The stack is empty";
+    else
+    {
+        cout<<"\n\n\t The elements are........";
+        for(int i=0;i<=st.top;i++)
+        cout<<" " <<st.arr[i];
+    }
+}
+
+int main()
+{
+    st.top=-1; //Initially stack is empty
+    int choice;
+    do{
+        cout<< "\n\n\t 1.Push an element in the stack";
+        cout<< "\n\n\t 2.Pop an element from the stack";
+        cout<< "\n\n\t 3.Display the element of the stack";
+        cout<< "\n\n\t 4.Exit from the program";
+        cout<< "\n\n\t Enter your choice bewteen (1-4):-";
+        cin>> choice;
+        switch(choice)
+        {
+            case 1:push();
+                  break;
+            case 2:pop();
+                  break;
+            case 3:display();
+                  break;
+            case 4:exit(0);
+                  break;
+            default:cout<<"\n\n\t Wrong entry try again";      
+                  break;
+        }
+        
+    }while(choice!=4);
+    
+}
