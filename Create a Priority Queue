@@ -1,0 +1,72 @@
+Create a Priority Queue IN C++
+
+*****************************************************************SOLUTION**************************************************************************
+
+#include <iostream>
+
+using namespace std;
+void enqueue(int ,int );
+int find_Peek_element();
+void dequeue(int );
+
+struct queue{
+	int value,priority;
+}Q[60];
+
+int size=-1;
+
+int find_Peek_element()
+{
+    int Pos_max_element;
+    int max_prio=0;
+    for(int i=0;i<=size;i++)
+    {
+        if(max_prio <= Q[i].priority)
+        {
+            max_prio=Q[i].priority;
+            Pos_max_element=i;
+        }
+            
+    }
+    return Pos_max_element;
+    
+}
+
+
+
+void enqueue(int data,int priority)
+{
+    size++;
+    Q[size].value=data;
+    Q[size].priority=priority;
+    
+}
+
+void dequeue(int peek_index)
+{
+    cout<<"\n deleted item: "<<Q[peek_index].value;
+    for (int i = peek_index; i < size; i++) {
+        Q[i] = Q[i + 1];
+    }
+    
+}
+
+int main()
+{
+    enqueue(10, 60);
+    enqueue(14, 2);
+    enqueue(16, 4);
+    enqueue(12, 3);
+
+    
+    int peek_index=find_Peek_element();
+    cout<<" \nMax priority element is: "<<Q[peek_index].value;
+    
+    dequeue(peek_index);
+    
+    peek_index=find_Peek_element();
+    
+    cout<<" \nNext Max priority element is: "<<Q[peek_index].value;
+
+    return 0;
+}
