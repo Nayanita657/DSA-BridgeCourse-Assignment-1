@@ -1,0 +1,71 @@
+Create a Binary search tree IN C++
+
+*****************************************************************SOLUTION************************************************************************
+
+#include <iostream>
+
+using namespace std;
+
+
+
+struct BSTree{
+    int data;
+    struct BSTree *left;
+    struct BSTree *right;
+};
+typedef struct BSTree node;
+
+node *Newnode(int item)
+{
+    node *temp=(node *)malloc(sizeof(node));
+    temp->data=item;
+    temp->left=NULL;
+    temp->right=NULL;
+    
+    return temp;
+}
+
+node *CreateNode(node *root,int item)
+{
+    if(root==NULL)
+    {
+        node *temp1=Newnode(item);
+        root=temp1;
+    }
+    else
+    {
+        if(root->data >= item)
+            root->left=CreateNode(root->left,item );
+        else
+            root->right=CreateNode(root->right,item);
+    }
+    
+    
+    return root;
+}
+
+void Inorder(node *root)
+{
+    if(root)
+    {
+        Inorder(root->left);
+        cout<< " "<<root->data;
+        Inorder(root->right);
+    }
+    
+}
+
+int main()
+{
+    node *root=NULL;
+    root=CreateNode(root,10);
+    root=CreateNode(root,2);
+    root=CreateNode(root,12);
+    root=CreateNode(root,1);
+    root=CreateNode(root,20);
+    root=CreateNode(root,15);
+    root=CreateNode(root,21);
+    cout<<"\n\n\t Inorder of BST....\n";
+    Inorder(root);
+   return 0; 
+}
