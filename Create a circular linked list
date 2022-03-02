@@ -1,0 +1,72 @@
+Create a circular linked list in C++
+
+***********************************************************************SOLUTION********************************************************************
+
+#include <iostream>
+
+using namespace std;
+
+struct node{
+    int data;
+    struct node *next;
+};
+typedef struct node node;
+node *head=NULL;
+
+
+void createnode()
+{
+    node *temp;
+    temp=(node *)malloc(sizeof(int));
+    if(temp==NULL)
+        exit(0);
+    cout << "\nEnter data element:";
+    cin >> temp->data;
+    temp->next=head;
+    if(head==NULL)
+    {
+        head=temp;
+        head->next=temp;
+    }
+    else
+    {
+        node *p=head;
+        while(p->next!=head)
+        {
+            p=p->next;
+        }
+        p->next=temp;
+        p=NULL;
+        temp=NULL;
+    }
+    
+}
+
+void displaynode()
+{
+    cout << "\n Displaying the Circular linked list";
+    cout <<"\n-----------------------------\n";
+    node *temp;
+    temp=head;
+    while(temp->next!=head)
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<temp->data;
+    
+    
+}
+
+int main()
+{
+    int total_node;
+    cout <<"\nEnter the no of nodes to be inserted in Circular Linked List:";
+    cin>>total_node;
+    for(int i=0;i<total_node;i++)
+    {
+        createnode();
+    }
+    displaynode();
+    return 0;
+}
