@@ -1,0 +1,116 @@
+Create a Queue IN C++
+
+**************************************************************************SOLUTION***************************************************************
+
+#include <iostream>
+
+using namespace std;
+
+struct Queue{
+    int rear,front,capacity;
+    int *array;
+};
+typedef struct Queue st;
+st *createQueue()
+{
+    st *temp=(struct Queue*)malloc(sizeof(st));
+    temp->capacity=5;
+    temp->front=-1;
+    temp->rear=-1;
+    temp->array=(int *)malloc(temp->capacity * sizeof(int));
+    return temp;
+}
+
+void enqueue(st *queue)
+{
+    int data;
+    if(queue->rear==queue->capacity-1)
+          cout << "\n\n\t queue overflow....";
+    else
+    {
+        if(queue->rear==-1)
+        {
+            queue->rear++;
+            queue->front++;
+        }
+        else
+        {
+            queue->rear++;
+        }
+        cout <<"\n\n\t Enter data item: ";
+        cin >>data;
+        queue->array[queue->rear]=data;
+    }
+}
+
+void display(st *queue)
+{
+    if(queue->front==-1)
+        cout<<"\n\n\t queue is empty";
+    else
+    {
+        cout<<"\n\n\t queue emelents are";
+        cout<<"\n\n\t -------------------";
+        for(int i=queue->front;i<=queue->rear;i++)
+        {
+            cout<<" "<<queue->array[i];
+            
+        }
+    }
+}
+
+void dequeue(st *queue)
+{
+    if(queue->front==-1)
+        cout<<"\n\n\t queue underflow.....";
+    else
+    {
+        int item;
+        item=queue->array[queue->front];
+        if(queue->front==queue->rear)
+        {
+            queue->front=-1;
+            queue->rear=-1;
+        }
+        
+        else
+        {
+            queue->front++;
+        }
+        
+        cout<<"\n\n\t successfully deleted element- "<<item;
+        display(queue);
+        
+    }
+}
+
+
+
+int main()
+{
+    int choice;
+    st *queue=createQueue();
+    do
+    {
+        cout<<"\n\n\t 1.Insert element in the Queue";
+        cout<<"\n\n\t 2.Delete element from the queue";
+        cout<<"\n\n\t 3.Display element of queue";
+        cout<<"\n\n\t 4.Exit";
+        cout<<"\n\n\t Enter your choice between(1-4):- ";
+        cin>>choice;
+        switch(choice)
+        {
+            case 1:enqueue(queue);
+                   break;
+            case 2:dequeue(queue);
+                   break;
+            case 3:display(queue); 
+                   break;
+            case 4:exit(0);
+                   break;
+            default: cout<<"\n\n\t Invalid choice";
+                   break;
+        }
+    }while(choice!=4);
+    return 0;
+}
